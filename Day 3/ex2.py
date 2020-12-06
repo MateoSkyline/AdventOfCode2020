@@ -1,21 +1,24 @@
-file = open("input.txt", "r")
+maxY = 30
 
-count = 0
+def forest(moveRight, moveDown):
+    file = open("input.txt", "r")
+    trees = 0
+    actualX = 0
+    actualY = 0
+    iteration = 0
+    for line in file:
+        if iteration == actualY:
+            check = line[actualX]
+            if check == "#":
+                trees += 1
+            if actualX + moveRight <= maxY:
+                actualX += moveRight
+            else:
+                actualX = (actualX + moveRight) - maxY - 1
+            actualY += moveDown
+        iteration += 1
+    return trees
 
-for line in file:
-    item = line.split(" ")
-    char = item[1].replace(":", "")
-    pwd = item[2].replace("\n", "")
-    num = item[0].split("-")
+print(forest(1,1) * forest(3,1) * forest(5,1) * forest(7,1) * forest(1,2))
 
-    if pwd[int(num[0])-1] == char:
-        if pwd[int(num[1])-1] == char:
-            pass
-        else:
-            count += 1
-    else:
-        if pwd[int(num[1])-1] == char:
-            count += 1
-        
 
-print(count)
