@@ -1,14 +1,26 @@
 file = open("input.txt", "r")
 
-count = 0
+trees = 0
+maxY = 30
+
+moveRight = 3
+moveDown = 1
+
+actualX = 0
+actualY = 0
+
+iteration = 0
 
 for line in file:
-    item = line.split(" ")
-    char = item[1].replace(":", "")
-    pwd = item[2].replace("\n", "")
-    num = item[0].split("-")
+    if iteration == actualY:
+        check = line[actualX]
+        if check == "#":
+            trees += 1
+    actualY += moveDown
+    if actualX + moveRight <= maxY:
+        actualX += moveRight
+    else:
+        actualX = (actualX + moveRight) - maxY - 1
+    iteration += 1
 
-    if pwd.count(char) >= int(num[0]) and pwd.count(char) <= int(num[1]):
-        count += 1
-
-print(count)
+print("Total number of trees: " + str(trees))
